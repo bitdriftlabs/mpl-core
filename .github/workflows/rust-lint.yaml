@@ -1,0 +1,64 @@
+# Managed by infra via Terraform, edits will be lost
+name: rust-lint
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: true
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Get a token that can be used for org read-only clones.
+      - name: org-read-only-install token
+        id: org-read-only
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ secrets.ORG_READ_ONLY_APP_ID }}
+          private_key: ${{ secrets.ORG_READ_ONLY_APP_PRIVATE_KEY }}
+
+      # Install the token so all ssh pulls are rewritten to use the token from the previous step.
+      - name: setup git credentials
+        uses: de-vri-es/setup-git-credentials@v2
+        with:
+          credentials: https://x-access-token:${{ steps.org-read-only.outputs.token }}@github.com/
+
+      - name: Cache
+        uses: Swatinem/rust-cache@dd05243424bd5c0e585e4b55eb2d7615cdd32f1f
+
+      - name: Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          profile: minimal
+          components: clippy
+
+      - name: Clippy
+        # Typically: cargo clippy --workspace --bins --examples --tests -- --no-deps
+        run: make clippy
+
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          override: true
+          profile: minimal
+          components: rustfmt
+
+      - name: Fmt
+        run: cargo +nightly fmt --all --check
