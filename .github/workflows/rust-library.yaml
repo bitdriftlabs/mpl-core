@@ -44,13 +44,18 @@ jobs:
           profile: minimal
 
       - name: Cache
-        uses: Swatinem/rust-cache@dd05243424bd5c0e585e4b55eb2d7615cdd32f1f
+        uses: Swatinem/rust-cache@a95ba195448af2da9b00fb742d14ffaaf3c21f43
 
       - name: CI Setup
         run: if [[ -f ci/setup.sh ]]; then ci/setup.sh; fi
 
       - name: Build Workspace
-        run: cargo build --workspace
+        run: |
+          if test -f "Makefile"; then
+            make build
+          else
+            cargo build --workspace
+          fi
 
       - name: Test Workspace
         run: |
