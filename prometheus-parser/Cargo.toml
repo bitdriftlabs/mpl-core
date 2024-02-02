@@ -1,0 +1,18 @@
+[package]
+authors = ["Vector Contributors <vector@datadoghq.com>", "Duy Do <juchiast@gmail.com>"]
+edition = "2021"
+license = "MPL-2.0"
+name    = "prometheus-parser"
+publish = false
+version = "0.1.0"
+
+[dependencies]
+bytes.workspace    = true
+indexmap.workspace = true
+nom.workspace      = true
+num_enum.workspace = true
+protobuf.workspace = true
+snafu.workspace    = true
+
+[build-dependencies]
+protobuf-codegen.workspace = true
