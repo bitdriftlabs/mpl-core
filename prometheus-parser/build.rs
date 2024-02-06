@@ -16,7 +16,7 @@ fn main() {
         .tokio_bytes(true)
         .tokio_bytes_for_string(true),
     )
-    .includes(["proto/", "../proto/src/"])
+    .includes(["proto/"])
     .inputs(["proto/prometheus-types.proto"])
     .out_dir("src/proto")
     .capture_stderr()
