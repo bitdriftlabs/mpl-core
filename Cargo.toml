@@ -9,10 +9,10 @@ nom      = "7.1.3"
 num_enum = "0.7.2"
 
 # TODO(mattklein123): This has to be made public so we can make this repo public.
-protobuf = { git = "ssh://git@github.com/lyft-lhouse/rust-protobuf.git", branch = "patch-stack", features = [
+protobuf = { git = "ssh://git@github.com/bitdriftlabs/rust-protobuf.git", branch = "patch-stack", features = [
   "bytes",
   "with-bytes",
 ] }
-protobuf-codegen = { git = "ssh://git@github.com/lyft-lhouse/rust-protobuf.git", branch = "patch-stack" }
+protobuf-codegen = { git = "ssh://git@github.com/bitdriftlabs/rust-protobuf.git", branch = "patch-stack" }
 
 snafu = { version = "0.8" }
