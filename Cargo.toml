@@ -4,9 +4,9 @@ resolver = "2"
 
 [workspace.dependencies]
 bytes    = "1"
-indexmap = "2.2.2"
+indexmap = "2.2.6"
 nom      = "7.1.3"
-num_enum = "0.7.2"
+num_enum = "0.7.3"
 
 # TODO(mattklein123): This has to be made public so we can make this repo public.
 protobuf = { git = "ssh://git@github.com/bitdriftlabs/rust-protobuf.git", branch = "patch-stack", features = [
