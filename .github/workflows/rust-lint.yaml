@@ -53,7 +53,7 @@ jobs:
           credentials: https://x-access-token:${{ steps.org-read-only.outputs.token }}@github.com/
 
       - name: Cache
-        uses: Swatinem/rust-cache@a95ba195448af2da9b00fb742d14ffaaf3c21f43
+        uses: Swatinem/rust-cache@v2.7.3
 
       - name: Rust Toolchain
         uses: actions-rs/toolchain@v1
