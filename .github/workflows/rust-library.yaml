@@ -32,7 +32,7 @@ jobs:
           profile: minimal
 
       - name: Cache
-        uses: Swatinem/rust-cache@v2.7.3
+        uses: Swatinem/rust-cache@v2.7.8
 
       - name: CI Setup
         run: if [[ -f ci/setup.sh ]]; then ci/setup.sh; fi
